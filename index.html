@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blockly Custom Blocks</title>
+  <!-- Load Blockly from the js folder where you copied blockly.min.js -->
+  <script src="js/blockly.min.js"></script>
+  <style>
+    /* Basic styling for Blockly workspace */
+    #blocklyDiv {
+      height: 480px;
+      width: 800px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Blockly Custom Blocks Example</h1>
+  <!-- Blockly workspace -->
+  <div id="blocklyDiv"></div>
+
+  <!-- Blockly toolbox, hidden from view -->
+  <xml id="toolbox" style="display: none">
+    <category name="Variables" colour="120">
+      <block type="create_variable"></block>
+      <block type="set_variable"></block>
+      <block type="get_variable"></block>
+    </category>
+    <category name="Math" colour="230">
+      <block type="add_numbers"></block>
+      <block type="subtract_numbers"></block>
+      <block type="multiply_numbers"></block>
+      <block type="divide_numbers"></block>
+      <block type="number_value"></block> <!-- Added Number Block -->
+    </category>
+    <category name="Logic" colour="210">
+      <block type="equals"></block>
+      <block type="greater_than"></block>
+      <block type="less_than"></block>
+      <block type="if_block"></block>
+      <block type="if_else_block"></block>
+      <block type="boolean_value"></block> <!-- Added Boolean Block -->
+    </category>
+    <category name="Loops" colour="120">
+      <block type="for_loop"></block>
+      <block type="while_loop"></block>
+    </category>
+    <category name="Functions" colour="290">
+      <block type="define_function"></block>
+      <block type="call_function"></block>
+    </category>
+    <category name="Text" colour="160">
+      <block type="text_value"></block> <!-- Added Text Block -->
+      <block type="concatenate_text"></block>
+      <block type="user_input"></block>
+      <block type="print_block"></block>
+    </category>
+  </xml>
+  
+  
+
+  <!-- Custom block definitions -->
+  <script src="custom_blocks.js"></script>
+
+  <script>
+    // Initialize Blockly workspace with toolbox
+    var workspace = Blockly.inject('blocklyDiv', {
+      toolbox: document.getElementById('toolbox')
+    });
+
+    // Function to generate and execute code from the workspace
+    function generateCode() {
+      var code = Blockly.JavaScript.workspaceToCode(workspace);
+      console.log(code); // Output generated code to the console
+      try {
+        eval(code); // Execute the generated JavaScript code
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // Button to run the code
+    const button = document.createElement('button');
+    button.textContent = 'Run Code';
+    button.onclick = generateCode;
+    document.body.appendChild(button);
+  </script>
+</body>
+</html>
+
